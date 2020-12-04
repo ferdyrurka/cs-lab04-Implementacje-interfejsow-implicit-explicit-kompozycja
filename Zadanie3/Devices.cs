@@ -1,6 +1,6 @@
 using System;
 
-namespace Zadanie2
+namespace Zadanie3
 {
     public interface IDevice
     {
@@ -27,11 +27,16 @@ namespace Zadanie2
 
         public void PowerOn()
         {
+            if (GetState() == IDevice.State.off)
+            {
+                ++Counter;
+            }
+
             state = IDevice.State.on;
             Console.WriteLine("Device is on ...");  
         }
 
-        public int Counter { get; private set; } = 0;
+        public int Counter { get; protected set; } = 0;
     }
 
     public interface IPrinter : IDevice
@@ -48,6 +53,15 @@ namespace Zadanie2
         // dokument jest skanowany, jeśli urządzenie włączone
         // w przeciwnym przypadku nic się dzieje
         void Scan(out IDocument document, IDocument.FormatType formatType);
+    }
+
+    public interface ICopier : IDevice, IPrinter, IScanner
+    {
+        int PrintCounter { get; }
+
+        int ScanCounter { get; }
+
+        void ScanAndPrint();
     }
 
     public interface IFax : IDevice

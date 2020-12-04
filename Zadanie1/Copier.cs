@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zadanie2
+namespace Zadanie1
 {
-    public class MultifunctionalDevice : BaseDevice, IMultifunctionalDevice
+    public class Copier : BaseDevice, ICopier
     {
-        public int SendCounter { get; private set; } = 0;
-
         public int PrintCounter { get; private set; } = 0;
 
         public int ScanCounter { get; private set; } = 0;
@@ -66,22 +64,12 @@ namespace Zadanie2
             );
         }
 
-        public void Send(in IDocument document)
+        public void ScanAndPrint()
         {
-            if (GetState() == IDevice.State.off)
-            {
-                return;
-            }
+            IDocument document;
 
-            ++SendCounter;
-
-            Console.WriteLine(
-                String.Format(
-                     "{0} Send fax: {1}",
-                     DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"),
-                     document.GetFileName()
-                )
-            );
+            Scan(out document, IDocument.FormatType.JPG);
+            Print(document);
         }
 
         public void PowerOn()

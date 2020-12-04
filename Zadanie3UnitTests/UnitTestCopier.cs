@@ -1,42 +1,16 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Zadanie1;
+using Zadanie3;
 using System;
-using System.IO;
 
-namespace Zadanie1UnitTests
+namespace Zadanie3UnitTests
 {
-    public class ConsoleRedirectionToStringWriter : IDisposable
-    {
-        private StringWriter stringWriter;
-        private TextWriter originalOutput;
-
-        public ConsoleRedirectionToStringWriter()
-        {
-            stringWriter = new StringWriter();
-            originalOutput = Console.Out;
-            Console.SetOut(stringWriter);
-        }
-
-        public string GetOutput()
-        {
-            return stringWriter.ToString();
-        }
-
-        public void Dispose()
-        {
-            Console.SetOut(originalOutput);
-            stringWriter.Dispose();
-        }
-    }
-
-
     [TestClass]
     public class UnitTestCopier
     {
         [TestMethod]
         public void Copier_GetState_StateOff()
         {
-            var copier = new Copier();
+            var copier = new Copier(new Printer(), new Scanner());
             copier.PowerOff();
 
             Assert.AreEqual(IDevice.State.off, copier.GetState()); 
@@ -45,7 +19,7 @@ namespace Zadanie1UnitTests
         [TestMethod]
         public void Copier_GetState_StateOn()
         {
-            var copier = new Copier();
+            var copier = new Copier(new Printer(), new Scanner());
             copier.PowerOn();
 
             Assert.AreEqual(IDevice.State.on, copier.GetState());
@@ -57,7 +31,7 @@ namespace Zadanie1UnitTests
         [TestMethod]
         public void Copier_Print_DeviceOn()
         {
-            var copier = new Copier();
+            var copier = new Copier(new Printer(), new Scanner());
             copier.PowerOn();
 
             var currentConsoleOut = Console.Out;
@@ -76,7 +50,7 @@ namespace Zadanie1UnitTests
         [TestMethod]
         public void Copier_Print_DeviceOff()
         {
-            var copier = new Copier();
+            var copier = new Copier(new Printer(), new Scanner());
             copier.PowerOff();
 
             var currentConsoleOut = Console.Out;
@@ -95,7 +69,7 @@ namespace Zadanie1UnitTests
         [TestMethod]
         public void Copier_Scan_DeviceOff()
         {
-            var copier = new Copier();
+            var copier = new Copier(new Printer(), new Scanner());
             copier.PowerOff();
 
             var currentConsoleOut = Console.Out;
@@ -114,7 +88,7 @@ namespace Zadanie1UnitTests
         [TestMethod]
         public void Copier_Scan_DeviceOn()
         {
-            var copier = new Copier();
+            var copier = new Copier(new Printer(), new Scanner());
             copier.PowerOn();
 
             var currentConsoleOut = Console.Out;
@@ -133,7 +107,7 @@ namespace Zadanie1UnitTests
         [TestMethod]
         public void Copier_Scan_FormatTypeDocument()
         {
-            var copier = new Copier();
+            var copier = new Copier(new Printer(), new Scanner());
             copier.PowerOn();
 
             var currentConsoleOut = Console.Out;
@@ -163,7 +137,7 @@ namespace Zadanie1UnitTests
         [TestMethod]
         public void Copier_ScanAndPrint_DeviceOn()
         {
-            var copier = new Copier();
+            var copier = new Copier(new Printer(), new Scanner());
             copier.PowerOn();
 
             var currentConsoleOut = Console.Out;
@@ -183,7 +157,7 @@ namespace Zadanie1UnitTests
         [TestMethod]
         public void Copier_ScanAndPrint_DeviceOff()
         {
-            var copier = new Copier();
+            var copier = new Copier(new Printer(), new Scanner());
             copier.PowerOff();
 
             var currentConsoleOut = Console.Out;
@@ -200,7 +174,7 @@ namespace Zadanie1UnitTests
         [TestMethod]
         public void Copier_PrintCounter()
         {
-            var copier = new Copier();
+            var copier = new Copier(new Printer(), new Scanner());
             copier.PowerOn();
 
             IDocument doc1 = new PDFDocument("aaa.pdf");
@@ -225,7 +199,7 @@ namespace Zadanie1UnitTests
         [TestMethod]
         public void Copier_ScanCounter()
         {
-            var copier = new Copier();
+            var copier = new Copier(new Printer(), new Scanner());
             copier.PowerOn();
 
             IDocument doc1;
@@ -251,7 +225,7 @@ namespace Zadanie1UnitTests
         [TestMethod]
         public void Copier_PowerOnCounter()
         {
-            var copier = new Copier();
+            var copier = new Copier(new Printer(), new Scanner());
             copier.PowerOn();
             copier.PowerOn();
             copier.PowerOn();
@@ -281,5 +255,118 @@ namespace Zadanie1UnitTests
             Assert.AreEqual(3, copier.Counter);
         }
 
+        [TestMethod]
+        public void Copier_ScannerDisabled()
+        {
+            Scanner scanner = new Scanner();
+            scanner.PowerOff();
+            var copier = new Copier(new Printer(), scanner);
+            copier.PowerOn();
+
+            IDocument doc1;
+            copier.Scan(out doc1);
+            IDocument doc2;
+            copier.Scan(out doc2);
+
+            IDocument doc3 = new ImageDocument("aaa.jpg");
+            copier.Print(in doc3);
+
+            copier.PowerOff();
+            copier.Print(in doc3);
+            copier.Scan(out doc1);
+            copier.PowerOn();
+
+            copier.ScanAndPrint();
+            copier.ScanAndPrint();
+
+            // 4 skany, gdy urządzenie włączone
+            Assert.AreEqual(4, copier.ScanCounter);
+            Assert.AreEqual(4, scanner.ScanCounter);
+        }
+
+        [TestMethod]
+        public void Copier_PrintDisabled()
+        {
+            Printer printer = new Printer();
+            printer.PowerOff();
+            var copier = new Copier(printer, new Scanner());
+            copier.PowerOn();
+
+            IDocument doc1 = new PDFDocument("aaa.pdf");
+            copier.Print(in doc1);
+            IDocument doc2 = new TextDocument("aaa.txt");
+            copier.Print(in doc2);
+            IDocument doc3 = new ImageDocument("aaa.jpg");
+            copier.Print(in doc3);
+
+            copier.PowerOff();
+            copier.Print(in doc3);
+            copier.Scan(out doc1);
+            copier.PowerOn();
+
+            copier.ScanAndPrint();
+            copier.ScanAndPrint();
+
+            // 5 wydruków, gdy urządzenie włączone
+            Assert.AreEqual(5, copier.PrintCounter);
+            Assert.AreEqual(5, printer.PrintCounter);
+        }
+
+        [TestMethod]
+        public void Copier_ScannerEnabled()
+        {
+            Scanner scanner = new Scanner();
+            scanner.PowerOn();
+            var copier = new Copier(new Printer(), scanner);
+            copier.PowerOn();
+
+            IDocument doc1;
+            copier.Scan(out doc1);
+            IDocument doc2;
+            copier.Scan(out doc2);
+
+            IDocument doc3 = new ImageDocument("aaa.jpg");
+            copier.Print(in doc3);
+
+            copier.PowerOff();
+            copier.Print(in doc3);
+            copier.Scan(out doc1);
+            copier.PowerOn();
+
+            copier.ScanAndPrint();
+            copier.ScanAndPrint();
+
+            // 4 skany, gdy urządzenie włączone
+            Assert.AreEqual(4, copier.ScanCounter);
+            Assert.AreEqual(4, scanner.ScanCounter);
+        }
+
+        [TestMethod]
+        public void Copier_PrintEnlabled()
+        {
+            Printer printer = new Printer();
+            printer.PowerOn();
+            var copier = new Copier(printer, new Scanner());
+            copier.PowerOn();
+
+            IDocument doc1 = new PDFDocument("aaa.pdf");
+            copier.Print(in doc1);
+            IDocument doc2 = new TextDocument("aaa.txt");
+            copier.Print(in doc2);
+            IDocument doc3 = new ImageDocument("aaa.jpg");
+            copier.Print(in doc3);
+
+            copier.PowerOff();
+            copier.Print(in doc3);
+            copier.Scan(out doc1);
+            copier.PowerOn();
+
+            copier.ScanAndPrint();
+            copier.ScanAndPrint();
+
+            // 5 wydruków, gdy urządzenie włączone
+            Assert.AreEqual(5, copier.PrintCounter);
+            Assert.AreEqual(5, printer.PrintCounter);
+        }
     }
 }
