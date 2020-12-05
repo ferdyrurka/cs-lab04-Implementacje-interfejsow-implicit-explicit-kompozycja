@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zadanie1UnitTests", "cs-lab04-Implementacje-interfejsow-implicit-explicit-kompozycja\Zadanie1UnitTests\Zadanie1UnitTests.csproj", "{A274BABE-82B9-40FE-9706-C57CF711F250}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zadanie1", "cs-lab04-Implementacje-interfejsow-implicit-explicit-kompozycja\Zadanie1\Zadanie1.csproj", "{2AA2760B-B097-49B4-899A-05A85BDC3A33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie2", "cs-lab04-Implementacje-interfejsow-implicit-explicit-kompozycja\Zadanie2\Zadanie2.csproj", "{54B62ADB-6FBE-407F-8F64-7B1BEE411AED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie2UnitTests", "cs-lab04-Implementacje-interfejsow-implicit-explicit-kompozycja\Zadanie2UnitTests\Zadanie2UnitTests.csproj", "{35C16507-ED39-4630-9585-6CD029D1E54C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie3UnitTests", "cs-lab04-Implementacje-interfejsow-implicit-explicit-kompozycja\Zadanie3UnitTests\Zadanie3UnitTests.csproj", "{282F16B2-572D-4A5A-AF22-81303B5278A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie3", "cs-lab04-Implementacje-interfejsow-implicit-explicit-kompozycja\Zadanie3\Zadanie3.csproj", "{EAD88D43-745F-4033-B071-C72CD1A0B446}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A274BABE-82B9-40FE-9706-C57CF711F250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A274BABE-82B9-40FE-9706-C57CF711F250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A274BABE-82B9-40FE-9706-C57CF711F250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A274BABE-82B9-40FE-9706-C57CF711F250}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AA2760B-B097-49B4-899A-05A85BDC3A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AA2760B-B097-49B4-899A-05A85BDC3A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AA2760B-B097-49B4-899A-05A85BDC3A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AA2760B-B097-49B4-899A-05A85BDC3A33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54B62ADB-6FBE-407F-8F64-7B1BEE411AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54B62ADB-6FBE-407F-8F64-7B1BEE411AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54B62ADB-6FBE-407F-8F64-7B1BEE411AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54B62ADB-6FBE-407F-8F64-7B1BEE411AED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35C16507-ED39-4630-9585-6CD029D1E54C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35C16507-ED39-4630-9585-6CD029D1E54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35C16507-ED39-4630-9585-6CD029D1E54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35C16507-ED39-4630-9585-6CD029D1E54C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{282F16B2-572D-4A5A-AF22-81303B5278A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{282F16B2-572D-4A5A-AF22-81303B5278A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{282F16B2-572D-4A5A-AF22-81303B5278A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{282F16B2-572D-4A5A-AF22-81303B5278A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD88D43-745F-4033-B071-C72CD1A0B446}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD88D43-745F-4033-B071-C72CD1A0B446}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD88D43-745F-4033-B071-C72CD1A0B446}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD88D43-745F-4033-B071-C72CD1A0B446}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F97B927A-EDA4-4AA1-8507-5483CADBA18D}
+	EndGlobalSection
+EndGlobal
